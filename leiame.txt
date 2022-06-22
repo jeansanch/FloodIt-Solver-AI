@@ -1,0 +1,30 @@
+Autor:
+	- Jean Carlo Sanchuki Filho
+
+Estratégia:
+	- O algoritmo é focado em volta de uma busca completa com algumas otimizações.
+	- Primeiramente o código separa a inserção e passa para a matriz que está no nó.
+	- Então esse primeiro nó (Tabuleiro/Mapa inicial) recebe a pontuação
+		- No inicio dela, ela verifica se a cor passada para ela, é a mesma da cor inicial do tabuleiro
+		- Caso seja, a função "pontuação" verifica recursivamente os parentes em busca da mesma cor.
+		- Caso não seja, isso é um sinal de que ela recebeu uma jogada nova e precisa atualizar a cor com a jogada feita.
+			- A função "modifica" funciona de forma parecida com a função "pontuação", verifica se o parente possui a mesma cor e modifica ele em uma chamada recursiva.
+
+	- Entramos agora no loop, onde ficamos até o mapa ser completado.
+	- A primeira coisa a ser realizada no loop é gerar os filhos do nó.
+		- Para cada cor possível ele gera um filho.
+		- Verifica se esse é o último passo a ser dado (Ultima profundidade da arvore).
+		- Caso não seja, ele verifica a pontuação e gera o filho para os filhos anteriormente gerados
+		- Caso seja, ele verifica a pontuação e armazena qual a melhor pontuação dentre os nós folhas.
+	- O loop verifica se o mapa foi completo pelo nó folha.
+	- Caso tenha sido, realiza um movimento final para atribuição dos passos até completar o mapa.
+	- Caso não tenha sido, passa o filho do nó inicial que chegou até o nó folha com a melhor resposta.
+	- Repete o processo até chegar ao tabuleiro completo
+	- Printa o resultado.
+
+
+Bugs e mais:
+	- Estou ciente de que existe um memory leak. No entanto, dou malloc na árvore e dou free em todos menos no nó que possui o passo para a melhor resposta. Não vejo motivo para perder tanto ponteiro.
+	- O código possui DEFINEs para tamanho do tabuleiro, número de filhos e nível de profundidade da geração de possibilidades. No entanto, para modificar o nível outra modificações precisam ser realizadas, caso queira testar, SIZEX, SIZEY e FIL devem funcionar com valores diferentes.
+	- Para economizar tempo, foi utilizado -O2 na compilação.
+	- Estou ciente que algumas otimizações poderiam ser feitas como juntar "modifica" e "pontuacao" e na geração de filhos não ter desalocado o espaço dos filhos do nó com o melhor caminho, pois eles seriam gerados novamente. No entanto, deixei IA por último e ainda precisava terminar o T2.
